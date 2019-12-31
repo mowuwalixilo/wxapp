@@ -15,15 +15,19 @@ import com.wxapp.api.login.Data62Login;
 import com.wxapp.api.msg.SendMsg;
 import com.wxapp.api.user.UserOperating;
 import com.wxapp.api.util.ImgUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-@ResponseBody
+@RestController
+@Api(tags = "主控制器")
 public class MainController {
 
     @Autowired
@@ -41,46 +45,54 @@ public class MainController {
     @Autowired
     FriendCircleApi friendCircleApi;//关于朋友圈的一些操作
 
+
+    @ApiOperation("SayHello")
+    @ApiImplicitParam(name = "str",value = "字段描述",required = true,paramType = "query",dataType = "String")
+    @GetMapping("/common/sayHello")
+    public String hello(String str) {
+        return "ret:" + str;
+    }
+
     //A16登录
-    @RequestMapping("/Login/A16Login")
+    @GetMapping("/Login/A16Login")
     public String a16Login(String wechatAccount,String wechatPassword,String wechatA16Data){
         String loginInfo = a16Login.weixinA16Login(wechatAccount, wechatPassword, wechatA16Data);
         return loginInfo;
     }
 
-    @RequestMapping("/Login/Data62Login")
+    @GetMapping("/Login/Data62Login")
     public String data62Login(String userName,String password,String data62){
         String loginInfo = data62Login.data62Login(userName,password,data62);
         return loginInfo;
     }
 
     //拉取好友列表
-    @RequestMapping("/Friend/GetContractList")
+    @GetMapping("/Friend/GetContractList")
     public String getContractList(String wxId,String currentWxcontactSeq,String currentChatRoomContactSeq){
         String friendsList = friendAction.getFriendsList(wxId, currentWxcontactSeq, currentChatRoomContactSeq);
         return friendAction.getFriendList(JSON.parseObject(friendsList)).toString();
     }
 
     //群发文本消息
-    @RequestMapping("/Message/SendTxtMessage")
+    @PostMapping("/Message/SendTxtMessage")
     public String sendTxtMessage(TextMsg textMsg){
         return sendMsg.sendTxtMessage(textMsg);
     }
 
     //发送图片消息
-    @RequestMapping("/Message/SendImageMessage")
+    @PostMapping("/Message/SendImageMessage")
     public String sendImageMessage(ImageMeg imageMeg){
         return sendMsg.sendImageMessage(imageMeg);
     }
 
     //获取用户的个人信息
-    @RequestMapping("/user/get")
+    @GetMapping("/user/get")
     public String getUserInfo(String wxId){
         return userOperating.getUserInfo(wxId);
     }
 
     //修改头像
-    @RequestMapping("/user/UploadHeadImage")
+    @GetMapping("/user/UploadHeadImage")
     public String uploadHeadImage(String imgUrl,String wxId){
         String base64 = ImgUtil.getBase64ByImgUrl(imgUrl);
         String returnMsg = userOperating.uploadHeadImage(base64, wxId);
@@ -88,19 +100,19 @@ public class MainController {
     }
 
     //修改资料
-    @RequestMapping("/user/UpdateProfile")
+    @PostMapping("/user/UpdateProfile")
     public String updateProfile(User user){
         return userOperating.updateProfile(user);
     }
 
     //设置微信号
-    @RequestMapping("/user/SetAlisa")
+    @GetMapping("/user/SetAlisa")
     public String setAlisa(String alisa,String wxId){
         return userOperating.setAlisa(alisa, wxId);
     }
 
     //创建群聊
-    @RequestMapping("/Group/CreateGroup")
+    @GetMapping("/Group/CreateGroup")
     public String createGroup(String groupName, List<String> toWxIds, String wxId){
         if (toWxIds.size() > 40){
             return "请保持群聊人数在40人以内";
@@ -110,28 +122,28 @@ public class MainController {
     }
 
     //发朋友圈
-    @RequestMapping("/FriendCircle/SendFriendCircle")
+    @PostMapping("/FriendCircle/SendFriendCircle")
     public String sendFriendCircle(FriendCircle friendCircle){
         String status = friendCircleApi.sendFriendCircle(friendCircle);
         return status;
     }
 
     //批量添加好友
-    @RequestMapping("/Friend/AddFriendRequestList")
+    @PostMapping("/Friend/AddFriendRequestList")
     public String addFriendRequestList(FriendList friendList){
         String addFriendRequestListResult = friendAction.addFriendRequestList(friendList);
         return addFriendRequestListResult;
     }
 
     //添加单个好友
-    @RequestMapping("/Friend/AddFriendRequest")
+    @PostMapping("/Friend/AddFriendRequest")
     public String addFriendRequest(FriendOne friendOne){
         String addFriendRequestResult = friendAction.addFriendRequest(friendOne);
         return addFriendRequestResult;
     }
 
     //搜索联系人
-    @RequestMapping("/Friend/SearchContract")
+    @GetMapping("/Friend/SearchContract")
     public String searchContract(String wxId,String searchWxName){
         String returnMSg = friendAction.searchContract(wxId,searchWxName);
         return returnMSg;
