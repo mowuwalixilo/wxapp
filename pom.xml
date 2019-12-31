@@ -19,6 +19,19 @@
     </properties>
 
     <dependencies>
+        <!--swagger2-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+        <!-- swagger-ui -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+
          <dependency>
                  <groupId>org.mybatis.spring.boot</groupId>
                  <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -50,7 +63,7 @@
         <dependency>
             <groupId>org.mx</groupId>
             <artifactId>mx-utils</artifactId>
-            <version>3.0.3</version>
+            <version>3.0.0</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
