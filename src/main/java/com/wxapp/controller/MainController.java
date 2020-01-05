@@ -1,12 +1,12 @@
 package com.wxapp.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.wxapp.api.bean.FriendCircle;
-import com.wxapp.api.bean.FriendList;
-import com.wxapp.api.bean.FriendOne;
-import com.wxapp.api.bean.User;
-import com.wxapp.api.bean.msg.ImageMeg;
-import com.wxapp.api.bean.msg.TextMsg;
+import com.wxapp.bean.FriendCircle;
+import com.wxapp.bean.FriendList;
+import com.wxapp.bean.FriendOne;
+import com.wxapp.bean.User;
+import com.wxapp.bean.msg.ImageMeg;
+import com.wxapp.bean.msg.TextMsg;
 import com.wxapp.api.friend.FriendAction;
 import com.wxapp.api.friendcycle.FriendCircleApi;
 import com.wxapp.api.group.CreateGroup;
@@ -14,20 +14,22 @@ import com.wxapp.api.login.A16Login;
 import com.wxapp.api.login.Data62Login;
 import com.wxapp.api.msg.SendMsg;
 import com.wxapp.api.user.UserOperating;
-import com.wxapp.api.util.ImgUtil;
+import com.wxapp.entity.A16User;
+import com.wxapp.entity.Data62User;
+import com.wxapp.entity.GetFriendListInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
+import com.wxapp.util.*;
 import java.util.List;
 
 @Controller
 @RestController
 @Api(tags = "主控制器")
+//测试 API 使用的控制器
 public class MainController {
 
     @Autowired
@@ -55,21 +57,21 @@ public class MainController {
 
     //A16登录
     @GetMapping("/Login/A16Login")
-    public String a16Login(String wechatAccount,String wechatPassword,String wechatA16Data){
-        String loginInfo = a16Login.weixinA16Login(wechatAccount, wechatPassword, wechatA16Data);
+    public String a16Login(A16User a16User){
+        String loginInfo = a16Login.weixinA16Login(a16User);
         return loginInfo;
     }
 
     @GetMapping("/Login/Data62Login")
-    public String data62Login(String userName,String password,String data62){
-        String loginInfo = data62Login.data62Login(userName,password,data62);
+    public String data62Login(Data62User data62User){
+        String loginInfo = data62Login.data62Login(data62User);
         return loginInfo;
     }
 
     //拉取好友列表
     @GetMapping("/Friend/GetContractList")
-    public String getContractList(String wxId,String currentWxcontactSeq,String currentChatRoomContactSeq){
-        String friendsList = friendAction.getFriendsList(wxId, currentWxcontactSeq, currentChatRoomContactSeq);
+    public String getContractList(GetFriendListInfo getFriendListInfo){
+        String friendsList = friendAction.getFriendsList(getFriendListInfo);
         return friendAction.getFriendList(JSON.parseObject(friendsList)).toString();
     }
 
@@ -92,9 +94,12 @@ public class MainController {
     }
 
     //修改头像
-    @GetMapping("/user/UploadHeadImage")
+    @PostMapping("/user/UploadHeadImage")
     public String uploadHeadImage(String imgUrl,String wxId){
+        System.out.println(imgUrl);
+        imgUrl = HttpclientUtil.getURLDecoderString(imgUrl);
         String base64 = ImgUtil.getBase64ByImgUrl(imgUrl);
+        System.out.println(imgUrl);
         String returnMsg = userOperating.uploadHeadImage(base64, wxId);
         return returnMsg;
     }

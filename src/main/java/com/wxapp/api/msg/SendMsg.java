@@ -1,11 +1,11 @@
 package com.wxapp.api.msg;
 
 import com.alibaba.fastjson.JSON;
-import com.wxapp.api.bean.msg.ImageMeg;
-import com.wxapp.api.bean.msg.TextMsg;
-import com.wxapp.api.bean.msg.VideoMsg;
-import com.wxapp.api.bean.msg.VoiceMsg;
-import com.wxapp.api.util.HttpclientUtil;
+import com.wxapp.bean.msg.ImageMeg;
+import com.wxapp.bean.msg.TextMsg;
+import com.wxapp.bean.msg.VideoMsg;
+import com.wxapp.bean.msg.VoiceMsg;
+import com.wxapp.util.HttpclientUtil;
 import org.springframework.stereotype.Component;
 
 /**

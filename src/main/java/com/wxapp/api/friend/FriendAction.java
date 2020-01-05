@@ -2,11 +2,12 @@ package com.wxapp.api.friend;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.wxapp.api.bean.FriendDelete;
-import com.wxapp.api.bean.FriendList;
-import com.wxapp.api.bean.FriendOne;
-import com.wxapp.api.bean.FriendVerify;
-import com.wxapp.api.util.HttpclientUtil;
+import com.wxapp.bean.FriendDelete;
+import com.wxapp.bean.FriendList;
+import com.wxapp.bean.FriendOne;
+import com.wxapp.bean.FriendVerify;
+import com.wxapp.entity.GetFriendListInfo;
+import com.wxapp.util.HttpclientUtil;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -27,13 +28,9 @@ public class FriendAction {
      返回原始的请求得到的 JSON
      测试成功
      */
-    public String getFriendsList(String wxId,String currentWxcontactSeq,String currentChatRoomContactSeq){
+    public String getFriendsList(GetFriendListInfo getFriendListInfo){
         String getFriendsListUrl = "http://47.110.75.232:8080/api/Friend/GetContractList";
-        Map<String,String> dataMap = new HashMap<>();
-        dataMap.put("wxId",wxId);
-        dataMap.put("currentWxcontactSeq",currentWxcontactSeq);
-        dataMap.put("currentChatRoomContactSeq",currentChatRoomContactSeq);
-        String postData = HttpclientUtil.doPost(getFriendsListUrl, dataMap);
+        String postData = HttpclientUtil.doJSONPost(getFriendsListUrl, JSON.toJSONString(getFriendListInfo));
         return postData;
     }
 

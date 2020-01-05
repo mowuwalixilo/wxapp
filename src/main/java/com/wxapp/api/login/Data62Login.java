@@ -1,6 +1,8 @@
 package com.wxapp.api.login;
 
-import com.wxapp.api.util.HttpclientUtil;
+import com.alibaba.fastjson.JSON;
+import com.wxapp.entity.Data62User;
+import com.wxapp.util.HttpclientUtil;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -20,13 +22,9 @@ public class Data62Login {
      * }
      * data62登录
      */
-    public String data62Login(String userName,String password,String data62){
+    public String data62Login(Data62User data62User){
         String url = "http://47.110.75.232:8080/api/Login/Data62Login";
-        Map<String,String> dataMap = new HashMap<>();
-        dataMap.put("userName",userName);
-        dataMap.put("password",password);
-        dataMap.put("data62",data62);
-        String loginInfo = HttpclientUtil.doPost(url,dataMap);
+        String loginInfo = HttpclientUtil.doJSONPost(url, JSON.toJSONString(data62User));
         return loginInfo;
     }
 }

@@ -1,8 +1,8 @@
 package com.wxapp.api.user;
 
 import com.alibaba.fastjson.JSON;
-import com.wxapp.api.bean.User;
-import com.wxapp.api.util.HttpclientUtil;
+import com.wxapp.bean.User;
+import com.wxapp.util.HttpclientUtil;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;

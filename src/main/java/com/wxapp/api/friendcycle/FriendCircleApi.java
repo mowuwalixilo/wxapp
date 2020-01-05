@@ -2,9 +2,9 @@ package com.wxapp.api.friendcycle;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.wxapp.api.bean.FriendCircle;
-import com.wxapp.api.bean.FriendCircleImage;
-import com.wxapp.api.util.HttpclientUtil;
+import com.wxapp.bean.FriendCircle;
+import com.wxapp.bean.FriendCircleImage;
+import com.wxapp.util.HttpclientUtil;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
