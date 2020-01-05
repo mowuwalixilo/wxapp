@@ -1,7 +1,7 @@
 package com.wxapp.api.msg;
 
 import com.alibaba.fastjson.JSON;
-import com.wxapp.bean.msg.*;
+import com.wxapp.entity.msg.*;
 import com.wxapp.util.HttpclientUtil;
 
 /**

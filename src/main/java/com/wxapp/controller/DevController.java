@@ -3,6 +3,8 @@ package com.wxapp.controller;
 import com.wxapp.api.friend.FriendAction;
 import com.wxapp.api.login.A16Login;
 import com.wxapp.api.login.Data62Login;
+import com.wxapp.api.msg.SendMsg;
+import com.wxapp.entity.msg.TextMsg;
 import com.wxapp.entity.A16User;
 import com.wxapp.entity.Data62User;
 import com.wxapp.entity.GetFriendListInfo;
@@ -33,9 +35,11 @@ public class DevController {
     Data62Login data62Login;
     @Autowired
     FriendAction friendAction;
+    @Autowired
+    SendMsg sendMsg;
 
     @PostMapping("/app/Login/A16Login")
-    public String a16Login(@RequestBody ArrayList<A16User> a16UserList){
+    public String a16Login(@RequestBody List<A16User> a16UserList){
         List<Future<String>> futureList = new ArrayList<>();
 
         System.out.println(a16UserList.size());
@@ -49,7 +53,7 @@ public class DevController {
     }
 
     @PostMapping("/app/Login/Data62Login")
-    public String data62Login(@RequestBody ArrayList<Data62User> data62UserArrayList){
+    public String data62Login(@RequestBody List<Data62User> data62UserArrayList){
         List<Future<String>> futureList = new ArrayList<>();
         for (Data62User data62User : data62UserArrayList) {
             Future<String> submit = executorService.submit(new Data62LoginTask(data62Login, data62User));
@@ -71,6 +75,15 @@ public class DevController {
         String returnStr = getFutureJSON(futureList);
         return returnStr;
     }
+
+//    //群发文本消息
+//    @PostMapping("/app/Message/SendTxtMessage")
+//    public String sendTxtMessage(List<TextMsg> textMsgList){
+//        List<Future<String>> futureList = new ArrayList<>();
+//        for (TextMsg textMsg : textMsgList) {
+//
+//        }
+//    }
 
     //获取json串，测试功能
     private String getFutureJSON(List<Future<String>> futureList){

@@ -42,7 +42,6 @@ public class HttpclientUtil {
                 httpclient.close();
                 return result;
             }
-            httpclient.close();
         }catch (IOException e){
             e.printStackTrace();
             return null;
@@ -67,10 +66,8 @@ public class HttpclientUtil {
                 HttpEntity entity = response.getEntity();
                 String result = EntityUtils.toString(entity, s);
                 EntityUtils.consume(entity);
-                httpclient.close();
                 return result;
             }
-            httpclient.close();
         }catch (IOException e){
             e.printStackTrace();
             return null;
@@ -100,10 +97,8 @@ public class HttpclientUtil {
                 HttpEntity entity = response.getEntity();
                 String result = EntityUtils.toString(entity, "UTF-8");
                 EntityUtils.consume(entity);
-                httpclient.close();
                 return result;
             }
-            httpclient.close();
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -123,10 +118,8 @@ public class HttpclientUtil {
                 HttpEntity entity = response.getEntity();
                 String result = EntityUtils.toString(entity, "UTF-8");
                 EntityUtils.consume(entity);
-                httpclient.close();
                 return result;
             }
-            httpclient.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

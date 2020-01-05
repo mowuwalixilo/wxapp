@@ -1,4 +1,4 @@
-package com.wxapp.bean.msg;
+package com.wxapp.entity.msg;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import java.util.List;
  *   "toWxIds": [
  *     "string"
  *   ],
+ *   "appId": "string",
  *   "title": "string",
  *   "desc": "string",
  *   "type": 0,
@@ -17,8 +18,9 @@ import java.util.List;
  *   "wxId": "string"
  * }
  */
-public class ShareMsg {
+public class AppMsg {
     private List<String> toWxIds;
+    private String appId;
     private String title;
     private String desc;
     private String type;
@@ -28,11 +30,12 @@ public class ShareMsg {
     private String thumbUrl;
     private String wxId;
 
-    public ShareMsg( ) {
+    public AppMsg( ) {
     }
 
-    public ShareMsg(List<String> toWxIds, String title, String desc, String type, String showType, String url, String dataUrl, String thumbUrl, String wxId) {
+    public AppMsg(List<String> toWxIds, String appId, String title, String desc, String type, String showType, String url, String dataUrl, String thumbUrl, String wxId) {
         this.toWxIds = toWxIds;
+        this.appId = appId;
         this.title = title;
         this.desc = desc;
         this.type = type;
@@ -49,6 +52,14 @@ public class ShareMsg {
 
     public void setToWxIds(List<String> toWxIds) {
         this.toWxIds = toWxIds;
+    }
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 
     public String getTitle() {

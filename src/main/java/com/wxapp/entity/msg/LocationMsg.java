@@ -1,4 +1,4 @@
-package com.wxapp.bean.msg;
+package com.wxapp.entity.msg;
 
 import java.util.List;
 
